@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
-from datetime import date
+from datetime import date,datetime
 
 class TransactionBase(BaseModel):
     amount:int
@@ -12,6 +12,7 @@ class TransactionCreate(BaseModel):
 
 class TransactionOut(BaseModel):
     id:int
+    timestamp:datetime
     user_id=int
 
 class Config:

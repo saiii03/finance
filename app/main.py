@@ -6,6 +6,7 @@ from app.database import engine
 from app.routes import user, transaction
 from app.auth.deps import get_current_user
 
+
 user_model.Base.metadata.create_all(bind=engine)
 transaction_model.Base.metadata.create_all(bind=engine)
 

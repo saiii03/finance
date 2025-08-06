@@ -11,3 +11,5 @@ class Transaction(Base):
     category = Column(String)
     type = Column(String)  
     date = Column(String)
+
+user=relationship("User",back_populates="transactions")
