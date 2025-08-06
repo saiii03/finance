@@ -10,4 +10,4 @@ def get_transaction():
 
 @router.post('/')
 def create_transaction():
-    return{"message":"Transaction has been created"+1}
+    return{"message":"Transaction has been created"}
