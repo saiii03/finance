@@ -4,11 +4,12 @@ from sqlalchemy.orm import Session
 from jose import JWTError
 from app.auth.auth import decode_access_token
 from app.database import get_db
-from app.models.user import User
+
 
 oauth2_scheme=OAuth2PasswordBearer(tokenUrl="users/login")
 
 def get_current_user(request:Request,db:Session=Depends(get_db)):
+    from app.models.user import User
     token=request.cookies.get("access_token")
     if not token:
         raise HTTPException(status_code=401,detail="missing token value")

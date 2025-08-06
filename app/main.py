@@ -4,7 +4,10 @@ from fastapi.responses import HTMLResponse
 from app.models import user as user_model, transaction as transaction_model
 from app.database import engine
 from app.routes import user, transaction
+from sqlalchemy.orm import Session
 from app.auth.deps import get_current_user
+from app.database import get_db
+
 
 
 user_model.Base.metadata.create_all(bind=engine)
@@ -17,7 +20,7 @@ templates = Jinja2Templates(directory="app/templates")
 
 
 app.include_router(user.router, prefix="/users", tags=["users"])
-app.include_router(transaction.router, prefix="/transactions", tags=["transactions"])
+app.include_router(transaction.router,  tags=["transactions"])
 
 
 
@@ -28,10 +31,6 @@ async def login_page(request: Request):
 @app.get("/register", response_class=HTMLResponse)
 async def register_page(request: Request):
     return templates.TemplateResponse("register.html", {"request": request})
-
-@app.get("/dashboard", response_class=HTMLResponse)
-async def dashboard_page(request: Request, current_user = Depends(get_current_user)):
-        return templates.TemplateResponse("dashboard.html", {"request": request, "user": current_user})
 
 
 @app.get("/")

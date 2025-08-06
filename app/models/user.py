@@ -8,5 +8,4 @@ class User(Base):
      username=Column(String,unique=True,index=True)
      email=Column(String,unique=True,index=True)
      hashed_password=Column(String)
-
-transactions=relationship("Transaction",back_populates="user")
+     transactions=relationship("Transaction",back_populates="user")

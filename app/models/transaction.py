@@ -1,15 +1,19 @@
-from sqlalchemy import Column, Integer, Float, ForeignKey,String
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
+from datetime import datetime
 from app.database import Base
+
 
 class Transaction(Base):
     __tablename__ = "transactions"
+    __table_args__ = {'extend_existing': True}
 
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
-    amount = Column(Float)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    amount = Column(Float, nullable=False)
     category = Column(String)
-    type = Column(String)  
-    date = Column(String)
+    title = Column(String)          # <--- Add this line
+    type = Column(String, nullable=False)
+    date = Column(DateTime, default=datetime.utcnow)
 
-user=relationship("User",back_populates="transactions")
+    user = relationship("User", back_populates="transactions")

@@ -13,6 +13,7 @@ from app.auth.auth import create_access_token
 from app.schemas import user as user_schema
 from fastapi import Form,Request
 from app.auth.deps import get_current_user
+from app.models.transaction import Transaction as transactionmodel
 
 router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="users/login")
@@ -60,7 +61,6 @@ async def login_page(request: Request):
 async def register_page(request: Request):
         return templates.TemplateResponse("register.html", {"request": request})
 
-@router.get("/dashboard", response_class=HTMLResponse)
-async def dashboard_page(request: Request, current_user = Depends(get_current_user)):
-        return templates.TemplateResponse("dashboard.html", {"request": request, "user": current_user})
+
+
 

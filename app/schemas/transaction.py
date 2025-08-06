@@ -1,19 +1,23 @@
 from pydantic import BaseModel
 from typing import Optional
-from datetime import date,datetime
+from datetime import datetime
 
 class TransactionBase(BaseModel):
-    amount:int
-    category:str
-    datetime:Optional[date]
-
-class TransactionCreate(BaseModel):
-    pass
+    amount: float  
+    category: Optional[str] = None
+    type: str  
+    date: Optional[datetime] = None  
+class TransactionCreate(TransactionBase):
+    title: str  
 
 class TransactionOut(BaseModel):
-    id:int
-    timestamp:datetime
-    user_id=int
+    id: int
+    user_id: int
+    title: str
+    amount: float
+    category: Optional[str]
+    type: str
+    date: datetime
 
-class Config:
-    orm_mode=True
+    class Config:
+        orm_mode = True
