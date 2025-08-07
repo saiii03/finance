@@ -1,14 +1,18 @@
-from pydantic import BaseModel
-from typing import Optional
+from pydantic import BaseModel,confloat
+from typing import Optional,Literal
 from datetime import datetime
 
 class TransactionBase(BaseModel):
     amount: float  
     category: Optional[str] = None
     type: str  
-    date: Optional[datetime] = None  
+    date: Optional[datetime] = None 
+
 class TransactionCreate(TransactionBase):
-    title: str  
+    title: str 
+    amount: confloat(gt=0)
+    description:str
+    type:Literal["income","expense"] 
 
 class TransactionOut(BaseModel):
     id: int

@@ -1,27 +1,141 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Add Transaction</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            background: #fff;
+            max-width: 450px;
+            width: 100%;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #4caf50;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            margin-top: 18px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 14px;
+            font-size: 1rem;
+            border: 1.5px solid #ccc;
+            border-radius: 6px;
+            transition: border-color 0.3s ease;
+            font-family: inherit;
+        }
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #4caf50;
+            box-shadow: 0 0 6px #a3d9a5;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+            font-family: inherit;
+        }
+
+        button {
+            margin-top: 30px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #43a047;
+        }
+
+        .warning {
+            background-color: #ffe0e0;
+            color: #cc0000;
+            border: 1px solid #cc0000;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 25px;
+            text-align: center;
+            color: #4caf50;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h2>Add Transaction</h2>
-    <form action="/add" method="post">
-        <label for="title">Title:</label><br>
-        <input type="text" id="title" name="title" required><br><br>
+    <div class="container">
+        <h2>Add Transaction</h2>
 
-        <label for="amount">Amount:</label><br>
-        <input type="number" id="amount" name="amount" step="0.01" required><br><br>
+        {% if warning %}
+            <div class="warning">{{ warning }}</div>
+        {% endif %}
 
-        <label for="type">Type:</label><br>
-        <select id="type" name="type" required>
-            <option value="income">Income</option>
-            <option value="expense">Expense</option>
-        </select><br><br>
+        <form action="/add" method="post">
+            <label for="title">Title <small>(required)</small>:</label>
+            <input type="text" id="title" name="title" required value="{{ title or '' }}">
 
-        <button type="submit">Add Transaction</button>
-    </form>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" placeholder="Optional">{{ description or '' }}</textarea>
 
-    <br>
-    <a href="/dashboard">Back to Dashboard</a>
+            <label for="category">Category:</label>
+            <input type="text" id="category" name="category" placeholder="E.g., Salary, Groceries, Rent" value="{{ category or '' }}">
+
+            <label for="amount">Amount <small>(required)</small>:</label>
+            <input type="number" id="amount" name="amount" step="0.01" min="0" required value="{{ amount or '' }}">
+
+            <label for="type">Type <small>(required)</small>:</label>
+            <select id="type" name="type" required>
+                <option value="income" {% if type == 'income' %}selected{% endif %}>Income</option>
+                <option value="expense" {% if type == 'expense' %}selected{% endif %}>Expense</option>
+            </select>
+
+            <button type="submit">Add Transaction</button>
+        </form>
+
+        <a href="/dashboard" class="back-link">&larr; Back to Dashboard</a>
+    </div>
 </body>
 </html>

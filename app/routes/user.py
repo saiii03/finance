@@ -1,6 +1,6 @@
-from fastapi import APIRouter, Depends, Request, status, HTTPException
+from fastapi import APIRouter, Depends, Request, status, HTTPException,Response
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse,RedirectResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 from datetime import timedelta
@@ -62,5 +62,9 @@ async def register_page(request: Request):
         return templates.TemplateResponse("register.html", {"request": request})
 
 
-
+@router.post('/logout')
+def logout():
+      response=RedirectResponse(url='/users/login',status_code=status.HTTP_303_SEE_OTHER)
+      response.delete_cookie(key="access_token")
+      return response
 

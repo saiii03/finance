@@ -10,6 +10,7 @@ from app.models.user import User
 
 
 
+
 router=APIRouter(
     prefix="/transactions",
     tags=["transactions"],
@@ -32,6 +33,7 @@ def get_transaction(
     transaction=db.query(Transactionmodel).filter(Transactionmodel.id == transaction_id,Transactionmodel.user_id==current_user.id).first()
     if not transaction:
         raise HTTPException(status_code=404,detail="transaction not found")
+    return transaction
     
 @router.delete('/{transaction_id}',status_code=status.HTTP_204_NO_CONTENT)
 def delete_transaction(
@@ -44,7 +46,7 @@ def delete_transaction(
         raise HTTPException(status_code=404,detail="transaction not found")
     db.delete(transaction)
     db.commit()
-    return transaction
+    return 
 @router.post("/", response_model=TransactionOut, status_code=status.HTTP_201_CREATED)
 def create_transaction(
     transaction: TransactionCreate,
@@ -52,11 +54,14 @@ def create_transaction(
     current_user: User = Depends(get_current_user),
 ):
     new_transaction = Transactionmodel(
-        amount=transaction.amount,
+        amount=abs(transaction.amount),
         description=transaction.description,
+        type=transaction.type,
         user_id=current_user.id,
     )
     db.add(new_transaction)
     db.commit()
     db.refresh(new_transaction)
     return new_transaction
+
+
