@@ -2,6 +2,7 @@ from pydantic import BaseModel,confloat
 from typing import Optional,Literal
 from datetime import datetime
 
+#schemas for transaction[method]
 class TransactionBase(BaseModel):
     amount: float  
     category: Optional[str] = None

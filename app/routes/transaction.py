@@ -40,6 +40,8 @@ async def dashboard_page(
     total_expense = sum(t.amount for t in all_txns if t.type == "expense")
     current_balance = total_income-total_expense
 
+#for filter of categories section[3]
+
     return templates.TemplateResponse(
         "dashboard.html",
         {

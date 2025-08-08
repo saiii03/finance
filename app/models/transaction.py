@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 from datetime import datetime
 from app.database import Base
 
-
+#model of transaction[ways]
 class Transaction(Base):
     __tablename__ = "transactions"
     __table_args__ = {'extend_existing': True}

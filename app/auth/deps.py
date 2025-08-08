@@ -5,6 +5,7 @@ from jose import JWTError
 from app.auth.auth import decode_access_token
 from app.database import get_db
 
+#dependencies
 
 oauth2_scheme=OAuth2PasswordBearer(tokenUrl="users/login")
 
