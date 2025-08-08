@@ -11,9 +11,10 @@ class Transaction(Base):
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     amount = Column(Float, nullable=False)
-    category = Column(String)
-    title = Column(String)          # <--- Add this line
+    category = Column(String,nullable=False)
+    title = Column(String)          
     type = Column(String, nullable=False)
+    description=Column(String, nullable=True)
     date = Column(DateTime, default=datetime.utcnow)
 
     user = relationship("User", back_populates="transactions")

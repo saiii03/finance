@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Finance Tracking App</title>
+    <style>
+        :root {
+            --primary: #4CAF50;
+            --bg: #f4f4f4;
+            --white: #ffffff;
+            --text: #333;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            color: var(--text);
+        }
+
+        header {
+            background-color: var(--white);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        header h1 {
+            margin: 0;
+            color: var(--primary);
+        }
+
+        .nav-buttons a {
+            text-decoration: none;
+            margin-left: 15px;
+            padding: 10px 20px;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            font-weight: bold;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-buttons a:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 100px auto 0;
+            padding: 20px;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        main h2 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        main p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-buttons {
+                margin-top: 10px;
+            }
+
+            .nav-buttons a {
+                display: block;
+                margin: 10px 0 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Finance Tracker</h1>
+        <div class="nav-buttons">
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+        </div>
+    </header>
+
+    <main>
+        <h2>Welcome to the Finance Tracking App</h2>
+        <p>
+            Take control of your finances with ease. This app helps you track your income, expenses, and overall financial health — all in one simple dashboard.
+            Add transactions, view spending patterns, and make smarter money decisions.
+        </p>
+        <p>
+            Create an account or login to get started on your financial journey today!
+        </p>
+    </main>
+
+</body>
+</html>

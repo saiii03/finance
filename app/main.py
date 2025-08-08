@@ -1,6 +1,6 @@
-from fastapi import FastAPI, Request,Depends
+from fastapi import FastAPI, Request,Depends,status
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse,RedirectResponse
 from app.models import user as user_model, transaction as transaction_model
 from app.database import engine
 from app.routes import user, transaction
@@ -33,6 +33,8 @@ async def register_page(request: Request):
     return templates.TemplateResponse("register.html", {"request": request})
 
 
-@app.get("/")
-def read_route():
-    return {"message": "welcome to personal finance tracker app"}
+@app.get("/", response_class=HTMLResponse)
+async def index(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
+    

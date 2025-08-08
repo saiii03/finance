@@ -15,12 +15,13 @@ from fastapi import Form,Request
 from app.auth.deps import get_current_user
 from app.models.transaction import Transaction as transactionmodel
 
+#setup
 router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="users/login")
 
 templates = Jinja2Templates(directory="app/templates")
 
-
+#storing registered info in database
 @router.post("/register")
 def register(
         email: str = Form(...),
@@ -35,9 +36,10 @@ def register(
         db.add(new_user)
         db.commit()
         db.refresh(new_user)
-        return {"id": new_user.id, "email": new_user.email}
+        return RedirectResponse(url='/users/login',status_code=status.HTTP_303_SEE_OTHER)
 
 
+#login function use jwt access token
 
 @router.post('/login', response_model=user_schema.Token)
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
@@ -61,10 +63,11 @@ async def login_page(request: Request):
 async def register_page(request: Request):
         return templates.TemplateResponse("register.html", {"request": request})
 
+#logout redirects to login page
 
 @router.post('/logout')
 def logout():
-      response=RedirectResponse(url='/users/login',status_code=status.HTTP_303_SEE_OTHER)
+      response=RedirectResponse(url='/',status_code=status.HTTP_303_SEE_OTHER)
       response.delete_cookie(key="access_token")
       return response
 
